@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Events - Event Management System</title>
+  <!-- Include Tailwind CSS from CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+  <div class="container mx-auto px-4 py-8">
+    <header class="mb-8">
+      <h1 class="text-3xl font-bold text-center text-blue-700">Event Management System</h1>
+      <div class="flex justify-between items-center mt-4">
+        <p class="text-gray-700">Welcome, {{user.name}}</p>
+        <div class="space-x-4">
+          <a href="/events" class="text-blue-600 hover:text-blue-800">Dashboard</a>
+          {{#if (eq user.name "Administrator")}}
+          <a href="/admin" class="bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded">Admin Panel</a>
+          {{/if}}
+          <a href="/logout" class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded">Logout</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <h2 class="text-2xl font-semibold mb-4 text-gray-800">All Events</h2>
+      
+      {{#if events.length}}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {{#each events}}
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+              <div class="p-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">{{title}}</h3>
+                <p class="text-gray-600 mb-4">{{description}}</p>
+                <div class="flex items-center text-gray-500 mb-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  <span>{{date}} at {{time}}</span>
+                </div>
+                <div class="flex items-center text-gray-500">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  <span>{{location}}</span>
+                </div>
+              </div>
+            </div>
+          {{/each}}
+        </div>
+      {{else}}
+        <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6">
+          <p>No upcoming events at the moment.</p>
+        </div>
+      {{/if}}
+    </main>
+  </div>
+</body>
+</html>

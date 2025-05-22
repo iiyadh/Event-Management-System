@@ -10,7 +10,12 @@ var app = express();
 // Configure handlebars
 app.engine('hbs', exphbs.engine({
   extname: '.hbs',
-  defaultLayout: false
+  defaultLayout: false,
+  helpers: {
+    eq: function (a, b) {
+      return a === b;
+    }
+  }
 }));
 app.set('view engine', 'hbs');
 
@@ -24,7 +29,6 @@ var db = mysql.createConnection({
   user: 'root',
   password: '',
   database: 'event_management',
-  port: 4306
 });
 
 // Connect to database

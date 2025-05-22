@@ -71,4 +71,25 @@ router.get('/', function(req, res) {
   res.redirect('/events');
 });
 
+// GET /all-events route - Display all events (requires login)
+router.get('/all-events', function(req, res) {
+  if (!req.app.locals.user) {
+    return res.redirect('/events'); // Redirect to login if not logged in
+  }
+
+  var db = req.db;
+  
+  db.query('SELECT * FROM events ORDER BY date ASC', function(err, events) {
+    if (err) {
+      console.error('Error fetching events: ' + err);
+      return res.status(500).send('Error fetching events');
+    }
+    
+    res.render('all-events', {
+      user: req.app.locals.user,
+      events: events
+    });
+  });
+});
+
 module.exports = router;
