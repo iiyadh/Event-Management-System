@@ -1,14 +1,14 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var mysql = require('mysql');
-var exphbs = require('express-handlebars');
+var hbs = require('express-hbs');
 var path = require('path');
 
 // Initialize Express app
 var app = express();
 
-// Configure handlebars
-app.engine('hbs', exphbs.engine({
+// Configure handlebars with express-hbs
+app.engine('hbs', hbs.express4({
   extname: '.hbs',
   defaultLayout: false,
   helpers: {
